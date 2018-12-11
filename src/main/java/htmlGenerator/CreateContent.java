@@ -9,7 +9,7 @@ import htmlGenerator.HTML.INPUTTYPE;
 
 /**
  * @author anuragjha
- *
+ * CreateContent handles creation of html content
  */
 public class CreateContent {
 	
@@ -72,17 +72,22 @@ public class CreateContent {
 	 * createUserSearchForm method writes HTML form for Recipes Search
 	 */
 	private void createUserSearchForm() {
+		this.responseBody.append("<h1 align=\"center\">Smart Food</h1>");
 		this.responseBody.append("<h3>Search for Recipes</h3>");	
 
 		this.responseBody.append(HTML.formOpen("/recipessearch", HTML.FORMMETHOD.POST));	
 		
-		this.responseBody.append(HTML.label("allowedIngredient", "Include Ingredient") + HTML.breakLine());	
+		this.responseBody.append(HTML.label("allowedIngredient", " Include Ingredient:"));	
 		this.responseBody.append(HTML.input
-				(INPUTTYPE.text, "allowedIngredient", "allowedIngredient") + HTML.breakLine());
+				(INPUTTYPE.textarea, "allowedIngredient", "allowedIngredient"));
 		
-		this.responseBody.append(HTML.label("excludedIngredient", "Exclude Ingredient") + HTML.breakLine());	
+		this.responseBody.append(HTML.label("excludedIngredient", " Exclude Ingredient:"));	
 		this.responseBody.append(HTML.input
-				(INPUTTYPE.text, "excludedIngredient", "excludedIngredient") + HTML.breakLine());
+				(INPUTTYPE.textarea, "excludedIngredient", "excludedIngredient"));
+		
+		this.responseBody.append(HTML.label("maxTotalTimeInSeconds", " Max Prep Time:"));	
+		this.responseBody.append(HTML.input
+				(INPUTTYPE.text, "maxTotalTimeInSeconds", "maxTotalTimeInSeconds") + HTML.breakLine());
 		
 		this.responseBody.append(HTML.submit());	    
 		

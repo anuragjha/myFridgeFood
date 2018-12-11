@@ -14,7 +14,7 @@ import htmlGenerator.CreateContent;
 
 /**
  * @author anuragjha
- *
+ * IndexServlet class handles "/" request
  */
 public class IndexServlet extends HttpServlet{
 

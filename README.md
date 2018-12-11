@@ -1,49 +1,30 @@
 # side-project-ajha6
 side-project-ajha6 created by GitHub Classroom
 
-Side Project - myfridgefood
+Side Project - Smart food
 
-myfridgefood gives its users a list of feasible recipes.
-program takes in user input of equipment and food items and churn out dishes(recipes) that can be prepared.
+Smart food gives its users a list of feasible recipes.
+Application accepts user input for food ingredient to be included and to be excluded, also the maximum preparation time as filter, then it churns out List of dishes that can be prepared. With link to the recipe for that dish.
 
 project plan
-1. use a food recipe api - to get recipies for specific ingredients and appliances
-2. users input appliances and food items
-3. software matches 
+1. use a food recipe api - to get recipes for given ingredients
+2. users to input - Ingredients to be included, Ingredients to be excluded and max preparation time 
+3. software sends request to Yummly, reads the Yummly response and generates Smart Food response for a that request.
 
 
 APIs -
-------------- input from user
-GET /appliances 
-POST /appliances
-{
- applicancelist:
-}  
 
-GET /foodItems
-POST /foodItems
-{
- foodItemList:  
-}
--------------output to user
-GET /dishList?filters here
-
-filters
+*** GET /
+Response - Dish search form
 
 
-API to use
+*** GET /recipesearch/*
+Response - Recipe and Nutritional value for the specific Dish
 
-
+*** POST /recipessearch
+Response - List of Dishes that meet given input parameters
 
 -------------------------------------------------------------
-1. Integrate already existing databases of recipes and/or ingredients by using free/paid APIs 
-
-2. Create your own database.
-
-3. Let your users upload their recipes and fill up the application in such a way.
-
-
-
 
 
 

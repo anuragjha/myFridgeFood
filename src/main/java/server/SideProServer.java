@@ -10,6 +10,7 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 
 import handlers.IndexServlet;
+import handlers.RecipeSearchServlet;
 import handlers.RecipesSearchServlet;
 
 /**
@@ -32,14 +33,24 @@ public class SideProServer {
 	public SideProServer(int port) {
 
 		this.PORT = port;
-		this.initialize();
+		
 	}
+	
+	
+	/**
+	 * @return the jettyServer
+	 */
+	public Server getJettyServer() {
+		return jettyServer;
+	}
+	
+	
 
-	private void initialize() {
+	public void initialize(int minThreads, int maxThreads, int timeout) {
 
 		this.shouldRun = true;
 
-		QueuedThreadPool threadpool = getThreadpool(10, 100, 120);
+		QueuedThreadPool threadpool = getThreadpool(minThreads, maxThreads, timeout);
 
 		this.jettyServer = new Server(threadpool);
 		
@@ -50,12 +61,6 @@ public class SideProServer {
 		
 		this.handler = new ServletHandler();
 		this.jettyServer.setHandler(this.handler);
-		//this.addMapping(BlockingServlet.class, "/status");
-		
-		//this.jettyServer.setHandler(this.handler);
-		
-		
-
 
 	}
 	
@@ -85,9 +90,10 @@ public class SideProServer {
 	public static void main(String[] args) {
 
 		SideProServer ps = new SideProServer(9090);
-		ps.initialize();
+		ps.initialize(10,100, 120);
 		ps.addMapping(IndexServlet.class, "/");
 		ps.addMapping(RecipesSearchServlet.class, "/recipessearch");
+		ps.addMapping(RecipeSearchServlet.class, "/recipesearch/*");
 		ps.start();
 	}
 

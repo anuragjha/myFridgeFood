@@ -11,12 +11,12 @@ import htmlGenerator.HTML;
  */
 public class flavor {
 
-	private long piquant = 0;
-	private long meaty = 0;
-	private long bitter = 0;
-	private long sweet = 0;
-	private long sour = 0;
-	private long salty = 0;
+	private long piquant;
+	private long meaty;
+	private long bitter;
+	private long sweet;
+	private long sour;
+	private long salty;
 	
 	
 	/**
@@ -32,13 +32,18 @@ public class flavor {
 		StringBuilder flavorHtml = new StringBuilder();
 		flavorHtml.append(HTML.tdOpen());
 		 flavorHtml.append("piquant: " + piquant
-				/* + ", meaty: " + meaty
+				 + ", meaty: " + meaty
 				 + ", bitter: " + bitter
 				 + ", sweet: " + sweet
 				 + ", sour: " + sour
-				 + ", salty: " + salty*/);
+				 + ", salty: " + salty);
 		flavorHtml.append(HTML.tdClose());
-		return flavorHtml.toString();
+		if(flavorHtml.toString().length() > 0) {
+			return flavorHtml.toString();
+		} else {
+			return "";
+		}
+		
 	}
 
 	/**

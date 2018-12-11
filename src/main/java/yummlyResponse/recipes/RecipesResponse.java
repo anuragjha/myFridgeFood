@@ -7,7 +7,7 @@ import htmlGenerator.HTML;
 
 /**
  * @author anuragjha
- *
+ * RecipesResponses class is response template for a Recipes search
  */
 public class RecipesResponse {
 
@@ -23,7 +23,10 @@ public class RecipesResponse {
 	public RecipesResponse() {
 	}
 
-	
+	/**
+	 * returns html reprentation; 
+	 * @return
+	 */
 	public String toHTML() {
 		StringBuilder RecipesResponseHtml = new StringBuilder();
 		
@@ -40,15 +43,6 @@ public class RecipesResponse {
 		return RecipesResponseHtml.toString();
 		
 		
-	}
-
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 	
 	

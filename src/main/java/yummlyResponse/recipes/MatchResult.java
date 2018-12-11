@@ -27,23 +27,41 @@ public class MatchResult {
 		StringBuilder matchResultHtml = new StringBuilder();
 
 		matchResultHtml.append(HTML.trOpen());
-		//matchResultHtml.append(HTML.td(imageUrlsBySize.toString()));
-		matchResultHtml.append(HTML.td(sourceDisplayName));
+		
+		//get Recipe
 		matchResultHtml.append(HTML.tdOpen());
-		for(String ingredient : ingredients) {
-			matchResultHtml.append(ingredient + "  ");
-		}
+		matchResultHtml.append(HTML.formOpen("/recipesearch/"+id, HTML.FORMMETHOD.GET));
+		matchResultHtml.append(HTML.submit(">>"));	    
+		matchResultHtml.append(HTML.formClose());
+//		matchResultHtml.append(HTML.td(id));
+		
 		matchResultHtml.append(HTML.tdClose());
-		matchResultHtml.append(HTML.td(id));
+		
+		matchResultHtml.append(HTML.td(recipeName));
+		//matchResultHtml.append(HTML.td(imageUrlsBySize.toString()));
+		//matchResultHtml.append(HTML.td(sourceDisplayName));
+		matchResultHtml.append(HTML.tdOpen());
+		//for(String ingredient : ingredients) {
+		matchResultHtml.append(ingredients[0]);
+		for(int i=1; i < ingredients.length; i++) {
+			matchResultHtml.append(", " + ingredients[i]);
+		}
+		
+		matchResultHtml.append(HTML.tdClose());
+		//matchResultHtml.append(HTML.td(id));
 		//matchResultHtml.append(HTML.tdOpen());
 		//for(String smallImageUrl : smallImageUrls) {
 		//	matchResultHtml.append(smallImageUrl + "  ");
 		//}
 		//matchResultHtml.append(HTML.tdClose());
-		matchResultHtml.append(HTML.td(recipeName));
+		
 		matchResultHtml.append(HTML.td(Integer.toString(totalTimeInSeconds/60)));
 		matchResultHtml.append(HTML.preBuiltHtml(attributes.toHTML()));
-		//matchResultHtml.append(HTML.preBuiltHtml(flavors.toHTML()));
+		
+//		if(flavors != null) {
+//			matchResultHtml.append(HTML.preBuiltHtml(flavors.toHTML()));
+//		}
+		
 		matchResultHtml.append(HTML.td(Integer.toString(rating)));
 
 		matchResultHtml.append(HTML.trClose());
@@ -56,13 +74,15 @@ public class MatchResult {
 	public static String fieldNamesAsHtmlTableHeaders() {
 		StringBuilder htmlTableHeaders = new StringBuilder();
 		htmlTableHeaders.append(HTML.trOpen());
+		htmlTableHeaders.append(HTML.th("Get Recipe"));  ///  /// ///  /// submit buttons
+		htmlTableHeaders.append(HTML.th("Recipe Name"));
 		//htmlTableHeaders.append(HTML.th("imageUrlsBySize"));
-		htmlTableHeaders.append(HTML.th("sourceDisplayName"));
-		htmlTableHeaders.append(HTML.th("ingredients"));
-		htmlTableHeaders.append(HTML.th("id"));
+		//htmlTableHeaders.append(HTML.th("sourceDisplayName"));
+		htmlTableHeaders.append(HTML.th("Ingredients"));
+		//htmlTableHeaders.append(HTML.th("id"));
 		//htmlTableHeaders.append(HTML.th("smallImageUrls"));
-		htmlTableHeaders.append(HTML.th("recipeName"));
-		htmlTableHeaders.append(HTML.th("totalTimeInMins"));
+		
+		htmlTableHeaders.append(HTML.th("Prep Time(Mins)"));
 		htmlTableHeaders.append(HTML.th("course"));
 		htmlTableHeaders.append(HTML.th("cuisine"));
 		//htmlTableHeaders.append(HTML.th("flavors"));

@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package ovenPack;
 
 import java.io.BufferedReader;
@@ -14,50 +17,55 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import yummlyRequest.recipe.YummlyRequestRecipe;
-import yummlyResponse.recipe.RecipeResponse;
+import yummlyRequest.recipes.YummlyRequest;
+import yummlyResponse.recipes.RecipesResponse;
 
 /**
  * @author anuragjha
  *
  */
-public class RecipeFetcherYummly {
+public class RecipesFetcherYummly {
 
-	/**
-	 * 
-	 */
-	public RecipeFetcherYummly() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public static RecipeResponse searchRequest(YummlyRequestRecipe yreq) {
+
+
+	public static RecipesResponse searchRequest(YummlyRequest yreq) {
 		
 		try {
 			return fetch(yreq);
 		} catch (IOException e) {
-			System.out.println("error in fetching the recipe from yummly");
+			System.out.println("error in fetching the search result from yummly");
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 
 	 * @param args
 	 * @throws IOException 
 	 */
-	private static RecipeResponse fetch(YummlyRequestRecipe yreq) throws IOException {
+	private static RecipesResponse fetch(YummlyRequest yreq) throws IOException {
 
 		//create URL object
 		//URL url = new URL("https://www.yelp.com/biz/the-velo-rouge-cafe-san-francisco");
 		//https://www.food2fork.com/api/search?key=319edf4b32c59048e5ec0eeeb9b1014c&q=bread%20butter&page=1
-		String baseURL = "https://api.yummly.com/v1/api/recipe/"+ yreq.getRecipeid() 
-			+"?_app_id=f12ecfaa&_app_key=2b105957596be49815d7c73edf2ac31b";
+		String baseURL = "https://api.yummly.com/v1/api/recipes?_app_id=f12ecfaa&_app_key=2b105957596be49815d7c73edf2ac31b";
+		//String queries = "&allowedIngredient=chicken";
+		StringBuilder queries = new StringBuilder();
+		if(yreq.getAllowedIngredient().length() > 0) {
+			queries.append(yreq.getAllowedIngredient());
+		}
+		if(yreq.getExcludedIngredient().length() > 0) {
+			queries.append(yreq.getExcludedIngredient());
+		} 
+		if(yreq.getMaxTotalTimeInSeconds() > 0) {
+			queries.append("&maxTotalTimeInSeconds="+yreq.getMaxTotalTimeInSeconds()); //yreq.getMaxTotalTimeInSeconds()
+		} 
 		
-		System.out.println("in RecipeFetcherYummly - Request to Yummly: " + baseURL);
+		System.out.println("in RecipeFetcherYummly - Request to Yummly: " + baseURL + queries.toString());
 
 
-		URL url = new URL(baseURL);
+		URL url = new URL(baseURL + queries.toString());
 
 
 		//create secure connection 
@@ -68,10 +76,9 @@ public class RecipeFetcherYummly {
 		connection.connect();
 
 		printHeaders(connection);
-		RecipeResponse recipeResponse= printBody(connection);
-		System.out.println("recipeResponse from RecipeFetcherYummly: " + recipeResponse.toString());
+		RecipesResponse recipesResponse= printBody(connection);
 
-		return recipeResponse;
+		return recipesResponse;
 
 	}
 
@@ -88,8 +95,8 @@ public class RecipeFetcherYummly {
 	}
 
 
-	public static RecipeResponse printBody(URLConnection connection) throws IOException {
-		RecipeResponse recipeResponse;
+	public static RecipesResponse printBody(URLConnection connection) throws IOException {
+		RecipesResponse recipesResponse;
 		BufferedReader reader = new BufferedReader(
 				new InputStreamReader(connection.getInputStream()));
 		
@@ -100,15 +107,9 @@ public class RecipeFetcherYummly {
 			System.out.println("for RecipesResponse: " + line);
 			jObject = parser.parse(line).getAsJsonObject();
 		} 
-		return new Gson().fromJson(jObject, RecipeResponse.class);
+		return new Gson().fromJson(jObject, RecipesResponse.class);
 	}
-	
-	
-	public static void main(String[] args) {
-		YummlyRequestRecipe yreq = new YummlyRequestRecipe();
-		yreq.setRecipeid("Cauliflower-Mash-1928746");
-		RecipeFetcherYummly.searchRequest(yreq);
-	}
+
 
 
 }

@@ -77,11 +77,15 @@ public class HTML {
 
 
 	public static String input(INPUTTYPE inputType, String id, String name) {
-		return "<input type=\"" + inputType.name() + "\" id=\"" + id + "\" name=\"" + name + "\" />";
+		return "<input type=\"" + inputType.name() + "\" id=\"" + id + "\" name=\"" + name + "\"  rows = \"4\" cols = \"50\" />";
 	}
 
 	public static String submit() {
 		return "<input type=\"" + "submit" + "\" value=\"" + "submit" + "\" />";
+	}
+	
+	public static String submit(String value) {
+		return "<input type=\"" + "submit" + "\" value=\"" + value + "\" />";
 	}
 
 	public static String h3(String content) {

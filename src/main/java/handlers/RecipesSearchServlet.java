@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import htmlGenerator.CreateContent;
-import ovenPack.RecipeFetcherYummly;
+import ovenPack.RecipesFetcherYummly;
 import yummlyRequest.recipes.YummlyRequest;
 import yummlyResponse.recipes.RecipesResponse;
 
 /**
  * @author anuragjha
- *
+ * RecipeSearchServlet handles request to search for recipes
  */
 public class RecipesSearchServlet extends HttpServlet {
 
@@ -34,23 +34,27 @@ public class RecipesSearchServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		System.out.println("POST Request for RecipesSearchServlet : " + request.getRequestURL().toString());
-		//System.out.println("allowedIngredient :" + request.getParameter("allowedIngredient"));
-		//System.out.println("excludedIngredient :" + request.getParameter("excludedIngredient"));
 		
 		YummlyRequest yummlyRequest = new YummlyRequest();
 		yummlyRequest.setAllowedIngredient(request.getParameter("allowedIngredient"));
 		yummlyRequest.setExcludedIngredient(request.getParameter("excludedIngredient"));
+		
+		if(!(request.getParameter("maxTotalTimeInSeconds").equals(""))) {
+			yummlyRequest.setMaxTotalTimeInSeconds
+				(Integer.parseInt(request.getParameter("maxTotalTimeInSeconds"))*60);
+		}
+		
 		System.out.println("allowedIngredient in yummlyRequest: " + yummlyRequest.getAllowedIngredient());
 		System.out.println("excludedIngredient in yummlyRequest: " + yummlyRequest.getExcludedIngredient());
+		System.out.println("maxTotalTimeInSeconds in yummlyRequest: " + yummlyRequest.getMaxTotalTimeInSeconds());
 		
-		RecipesResponse recipesResponse  = RecipeFetcherYummly.searchRequest(yummlyRequest);
+		RecipesResponse recipesResponse  = RecipesFetcherYummly.searchRequest(yummlyRequest);
 		
 		response.setStatus(HttpServletResponse.SC_OK);
-		//response.setContentType("application/json"); 
+ 
 		response.setContentType("text/html");
 		response.getWriter().println(new CreateContent().searchFormHTML());
-		///////////////// -->> instead use RecipeFetcherYummly
-		///////////////// -->> make yummly fetcher better and give params capability
+
 		response.getWriter().println(recipesResponse.toHTML());
 
 	}	

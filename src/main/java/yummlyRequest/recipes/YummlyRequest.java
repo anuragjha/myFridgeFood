@@ -169,6 +169,23 @@ public class YummlyRequest {
 	 */
 	public void setAllowedAllergy(String allowedAllergy) {
 		this.allowedAllergy = allowedAllergy;
+		
+//		String[] allowedAllergies = allowedAllergy.split(" "); 
+//		//allowedIngredient[]=garlic               // &allowedIngredient[]=cognac
+//		
+//		StringBuilder sb = new StringBuilder();
+//		//if(excludedIngredients.length == 1) {
+//		//	sb.append("excludedIngredient[]=" + excludedIngredients[0]);
+//		//} else {
+//			//sb.append("excludedIngredient[]=" + excludedIngredients[0]);
+//			for(int i = 0; i< allowedAllergies.length; i++) {
+//				if(allowedAllergies[i].equals("")) {
+//					break;
+//				}
+//				sb.append("&excludedIngredient[]=" + allowedAllergies[i]);
+//			}
+		//}
+//		this.excludedIngredient = sb.toString();
 	}
 
 
