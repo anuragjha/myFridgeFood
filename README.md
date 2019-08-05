@@ -1,9 +1,6 @@
-# side-project-ajha6
-side-project-ajha6 created by GitHub Classroom
+# Smart foodie
 
-Side Project - Smart food
-
-Smart food gives its users a list of feasible recipes.
+Smart foodie gives its users a list of feasible recipes.
 Application accepts user input for food ingredient to be included and to be excluded, also the maximum preparation time as filter, then it churns out List of dishes that can be prepared. With link to the recipe for that dish.
 
 project plan
